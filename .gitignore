@@ -1,0 +1,6 @@
+# Temporary profile and screenshot dumps
+tmp-*
+tmp-*/
+New folder/
+.netlify/
+_site/
