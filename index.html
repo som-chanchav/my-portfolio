@@ -1658,6 +1658,98 @@
             margin-bottom: 20px;
         }
 
+        /* Work Pagination */
+        .work-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 26px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(37, 99, 235, 0.25);
+            background: rgba(255, 255, 255, 0.85);
+            color: var(--dark);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            user-select: none;
+        }
+
+        .dark-mode .pagination-btn {
+            background: rgba(30, 31, 48, 0.85);
+            color: #f1f5f9;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .pagination-numbers {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-num-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--dark);
+            user-select: none;
+        }
+
+        .dark-mode .page-num-btn {
+            background: rgba(30, 31, 48, 0.9);
+            color: #f1f5f9;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .page-num-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .page-num-btn.active {
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+        }
+
         /* Video Preview Modal */
         .video-modal {
             display: none;
@@ -4755,6 +4847,19 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Work Pagination -->
+            <div class="work-pagination" id="workPagination">
+                <button class="pagination-btn prev-btn" id="workPrevBtn">
+                    <i class="fas fa-arrow-left"></i> <span data-i18n="work.pagination.prev">Previous</span>
+                </button>
+                <div class="pagination-numbers" id="workPaginationNumbers">
+                    <!-- Page numbers generated dynamically -->
+                </div>
+                <button class="pagination-btn next-btn" id="workNextBtn">
+                    <span data-i18n="work.pagination.next">Next Page</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -5199,6 +5304,8 @@ km: {
                 "work.project12.title": "React Native vs Kotlin",
                 "work.project12.desc": "កម្មវិធីទូរស័ព្ទ E-Commerce Shopping App បង្កើតឡើងដោយ Android Kotlin ជាមួយ SQLite Database សម្រាប់គ្រប់គ្រងទិន្នន័យក្នុងម៉ាស៊ីន (Local Storage), ប្រព័ន្ធ Login/Register, Categories, Cart, និង Multi-step Checkout។",
                 "work.watch": "មើលវីដេអូ",
+                "work.pagination.prev": "ទំព័រមុន",
+                "work.pagination.next": "ទំព័របន្ទាប់",
                 
                 // Video Modal
                 "video.title": "ការមើលជាមុនវីដេអូគម្រោង",
@@ -5367,6 +5474,8 @@ km: {
                 "work.project12.title": "React Native vs Kotlin",
                 "work.project12.desc": "E-Commerce Shopping App developed with Android Kotlin & SQLite database for local persistence, featuring user authentication, categories, cart management, and multi-step checkout.",
                 "work.watch": "Watch Video",
+                "work.pagination.prev": "Previous",
+                "work.pagination.next": "Next Page",
                 
                 // Video Modal
                 "video.title": "Project Video Preview",
@@ -5535,6 +5644,8 @@ km: {
                 "work.project12.title": "React Native vs Kotlin",
                 "work.project12.desc": "基于 Android Kotlin 和 SQLite 数据库开发的 E-Commerce 购物移动应用，具备用户认证、商品分类、购物车管理以及多步骤结账功能。",
                 "work.watch": "观看视频",
+                "work.pagination.prev": "上一页",
+                "work.pagination.next": "下一页",
                 
                 // Video Modal
                 "video.title": "项目视频预览",
@@ -6475,40 +6586,129 @@ ${message}
             });
         }
 
-        // Work Filtering
+        // Work Filtering with Pagination (3 rows / 9 projects per page)
         function initWorkFilter() {
             const filterButtons = document.querySelectorAll('.filter-btn');
-            const workCards = document.querySelectorAll('.work-card');
+            const workCards = Array.from(document.querySelectorAll('.work-card'));
+            const paginationContainer = document.getElementById('workPagination');
+            const prevBtn = document.getElementById('workPrevBtn');
+            const nextBtn = document.getElementById('workNextBtn');
+            const pageNumbersContainer = document.getElementById('workPaginationNumbers');
 
+            const ITEMS_PER_PAGE = 9; // 3 rows x 3 columns on desktop
+            let currentPage = 1;
+            let currentFilter = 'all';
+
+            function getFilteredCards() {
+                if (currentFilter === 'all') {
+                    return workCards;
+                }
+                return workCards.filter(card => card.getAttribute('data-category') === currentFilter);
+            }
+
+            function renderPage(page, scrollToTop = false) {
+                const filtered = getFilteredCards();
+                const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
+
+                if (page < 1) page = 1;
+                if (page > totalPages) page = totalPages;
+                currentPage = page;
+
+                const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+                const endIndex = startIndex + ITEMS_PER_PAGE;
+
+                // Show cards in current page, hide other cards
+                workCards.forEach(card => {
+                    const matchesFilter = (currentFilter === 'all' || card.getAttribute('data-category') === currentFilter);
+                    const indexInFiltered = filtered.indexOf(card);
+                    const isInCurrentPage = (indexInFiltered >= startIndex && indexInFiltered < endIndex);
+
+                    if (matchesFilter && isInCurrentPage) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 20);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Pagination visibility & buttons state
+                if (paginationContainer) {
+                    paginationContainer.style.display = totalPages > 1 ? 'flex' : 'none';
+                }
+
+                if (prevBtn) {
+                    prevBtn.disabled = (currentPage === 1);
+                }
+                if (nextBtn) {
+                    nextBtn.disabled = (currentPage === totalPages);
+                }
+
+                // Render page numbers
+                if (pageNumbersContainer) {
+                    pageNumbersContainer.innerHTML = '';
+                    for (let i = 1; i <= totalPages; i++) {
+                        const pageBtn = document.createElement('button');
+                        pageBtn.className = `page-num-btn ${i === currentPage ? 'active' : ''}`;
+                        pageBtn.textContent = i;
+                        pageBtn.setAttribute('aria-label', `Page ${i}`);
+                        pageBtn.addEventListener('click', () => {
+                            if (i !== currentPage) {
+                                playSound('click');
+                                renderPage(i, true);
+                            }
+                        });
+                        pageNumbersContainer.appendChild(pageBtn);
+                    }
+                }
+
+                if (scrollToTop) {
+                    const workSection = document.getElementById('work');
+                    if (workSection) {
+                        workSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+
+            // Filter button click listeners
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // Play sound
                     playSound('click');
-
-                    // Remove active class from all buttons
                     filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
                     button.classList.add('active');
 
-                    const filterValue = button.getAttribute('data-filter');
-
-                    workCards.forEach(card => {
-                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                            card.style.display = 'block';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0)';
-                            }, 10);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300);
-                        }
-                    });
+                    currentFilter = button.getAttribute('data-filter') || 'all';
+                    renderPage(1, false);
                 });
             });
+
+            // Prev & Next button listeners
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        playSound('click');
+                        renderPage(currentPage - 1, true);
+                    }
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    const filtered = getFilteredCards();
+                    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+                    if (currentPage < totalPages) {
+                        playSound('click');
+                        renderPage(currentPage + 1, true);
+                    }
+                });
+            }
+
+            // Initial render: show first 9 cards (3 rows)
+            renderPage(1, false);
         }
 
         // Testimonial Slider
