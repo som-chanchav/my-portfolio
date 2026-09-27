@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae | SOM CHANCHAV</title>
+    <link rel="icon" href="images/logo.png?v=2" type="image/png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --accent: #0ea5e9;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #0f1018;
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 30px 16px;
+        }
+
+        /* Action Bar (Screen Only) */
+        .cv-actions-bar {
+            max-width: 860px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+        }
+
+        .btn-home {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-home:hover {
+            background: rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        /* CV Sheet */
+        .cv-sheet {
+            max-width: 860px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            padding: 44px 48px;
+            color: var(--text-dark);
+        }
+
+        /* Header */
+        .cv-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .cv-header-info h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .cv-header-info .title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .cv-avatar {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+            flex-shrink: 0;
+        }
+
+        .cv-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Contact Details Grid */
+        .cv-contact-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px 18px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13.5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* CV Body Grid */
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 36px;
+            margin-top: 24px;
+        }
+
+        /* Sections */
+        .cv-section {
+            margin-bottom: 24px;
+        }
+
+        .cv-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1.5px solid #dbeafe;
+            padding-bottom: 5px;
+        }
+
+        .section-title i {
+            font-size: 14px;
+        }
+
+        /* Summary */
+        .cv-summary {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.65;
+            text-align: justify;
+        }
+
+        /* Experience & Projects Items */
+        .item-card {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .item-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .item-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .item-date {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .item-subtitle {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        .item-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 5px;
+            line-height: 1.55;
+        }
+
+        .item-desc ul {
+            padding-left: 18px;
+            margin-top: 4px;
+        }
+
+        .item-desc li {
+            margin-bottom: 3px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+            font-size: 12px;
+        }
+
+        .project-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 6px;
+        }
+
+        .tech-tag {
+            font-size: 11px;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: #334155;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Sidebar Column */
+        .skills-group {
+            margin-bottom: 14px;
+        }
+
+        .skills-group-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .skills-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-pill {
+            font-size: 11.5px;
+            font-weight: 600;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+            padding: 3px 9px;
+            border-radius: 14px;
+        }
+
+        /* Language & Certifications */
+        .list-unstyled {
+            list-style: none;
+        }
+
+        .list-item {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .list-item i {
+            color: #10b981;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* Print Styling */
+        @media print {
+            body {
+                background: #ffffff !important;
+                padding: 0 !important;
+                color: #000000 !important;
+            }
+
+            .cv-actions-bar {
+                display: none !important;
+            }
+
+            .cv-sheet {
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+                border-radius: 0 !important;
+            }
+
+            a {
+                text-decoration: none !important;
+                color: inherit !important;
+            }
+
+            .item-date {
+                border: 1px solid #cbd5e1 !important;
+                background: transparent !important;
+            }
+
+            @page {
+                size: A4;
+                margin: 12mm 15mm;
+            }
+        }
+
+        /* Responsive Mobile Screen */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px 8px;
+            }
+
+            .cv-sheet {
+                padding: 24px 20px;
+            }
+
+            .cv-header {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .cv-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .cv-header-info h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Actions Bar -->
+    <div class="cv-actions-bar">
+        <a href="index.html" class="btn btn-home">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+        <button onclick="window.print()" class="btn btn-print">
+            <i class="fas fa-print"></i> Print / Save as PDF
+        </button>
+    </div>
+
+    <!-- CV Document Sheet -->
+    <main class="cv-sheet">
+
+        <!-- Header -->
+        <header class="cv-header">
+            <div class="cv-header-info">
+                <h1>Som Chanchav</h1>
+                <span class="title">Full-Stack & Mobile App Developer</span>
+            </div>
+            <div class="cv-avatar">
+                <img src="images/now.png?v=2" alt="Som Chanchav">
+            </div>
+        </header>
+
+        <!-- Contact Bar -->
+        <div class="cv-contact-bar">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:somchanchav6125@gmail.com">somchanchav6125@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <a href="tel:0888319665">088 831 9665</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Phnom Penh, Cambodia</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-globe"></i>
+                <a href="https://som-chanchav.netlify.app/" target="_blank">som-chanchav.netlify.app</a>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-github"></i>
+                <a href="https://github.com/som-chanchav" target="_blank">github.com/som-chanchav</a>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-telegram"></i>
+                <a href="https://t.me/som_chanchav" target="_blank">t.me/som_chanchav</a>
+            </div>
+        </div>
+
+        <!-- Main Content 2 Columns -->
+        <div class="cv-grid">
+
+            <!-- Left / Main Column -->
+            <div class="cv-main-col">
+
+                <!-- Profile Summary -->
+                <section class="cv-section">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Professional Summary</h2>
+                    <p class="cv-summary">
+                        Passionate and detail-oriented Full-Stack & Mobile Application Developer with strong expertise in building responsive, high-performance web and mobile solutions. Proficient in modern cross-platform mobile development (Flutter, React Native) and native Android (Kotlin), alongside full-stack web technologies (React, PHP, Laravel, Node.js). Dedicated to writing clean, maintainable code, adhering to UI/UX best practices, and delivering seamless digital experiences.
+                    </p>
+                </section>
+
+                <!-- Featured Projects -->
+                <section class="cv-section">
+                    <h2 class="section-title"><i class="fas fa-laptop-code"></i> Featured Projects</h2>
+
+                    <!-- Project 1: E-Commerce Shopping App -->
+                    <div class="item-card">
+                        <div class="item-header">
+                            <span class="item-title">E-Commerce Shopping Mobile App</span>
+                            <span class="item-date">2026</span>
+                        </div>
+                        <div class="item-subtitle">React Native & Android Native (Kotlin)</div>
+                        <div class="item-desc">
+                            <ul>
+                                <li>Engineered a full-featured e-commerce mobile application featuring product catalog, search/filter, shopping cart, and smooth checkout flow.</li>
+                                <li>Implemented high-performance native Android components in Kotlin combined with modern React Native modules.</li>
+                                <li>Integrated responsive UI layouts, secure state management, and optimized API calls.</li>
+                            </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Kotlin</span>
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Android Studio</span>
+                            <span class="tech-tag">REST APIs</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/som-chanchav/ECommerceShoppingApp-Android-Kotlin" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+                            <a href="https://youtu.be/vluJ-MYez6I" target="_blank"><i class="fas fa-play-circle"></i> Video Demo</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Full-Stack Flutter App -->
+                    <div class="item-card">
+                        <div class="item-header">
+                            <span class="item-title">Full-Stack Mobile Application</span>
+                            <span class="item-date">2026</span>
+                        </div>
+                        <div class="item-subtitle">Flutter & Dart Cross-Platform</div>
+                        <div class="item-desc">
+                            <ul>
+                                <li>Architected and developed a cross-platform mobile application for Android and iOS using Flutter and Dart.</li>
+                                <li>Applied Clean Architecture principles, scalable state management, and seamless backend API integration.</li>
+                                <li>Delivered smooth 60fps animations, intuitive UI/UX navigation, and offline data persistence.</li>
+                            </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">BLoC / Provider</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://youtu.be/EuRuL0tpApg" target="_blank"><i class="fas fa-play-circle"></i> Video Demo</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Responsive Developer Portfolio -->
+                    <div class="item-card">
+                        <div class="item-header">
+                            <span class="item-title">Personal Portfolio & Showcase Platform</span>
+                            <span class="item-date">2025 - 2026</span>
+                        </div>
+                        <div class="item-subtitle">HTML5, Modern CSS3, JavaScript, Netlify</div>
+                        <div class="item-desc">
+                            <ul>
+                                <li>Designed and deployed an interactive, mobile-responsive developer portfolio with Dark/Light mode theme switching and bilingual support (Khmer/English).</li>
+                                <li>Built dynamic multi-category project filtering, 3-row smart pagination, interactive video modal, and instant Telegram Bot contact messaging.</li>
+                            </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML5 / CSS3</span>
+                            <span class="tech-tag">JavaScript ES6+</span>
+                            <span class="tech-tag">Netlify CI/CD</span>
+                            <span class="tech-tag">Telegram API</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://som-chanchav.netlify.app/" target="_blank"><i class="fas fa-external-link-alt"></i> Live Website</a>
+                            <a href="https://github.com/som-chanchav/my-portfolio" target="_blank"><i class="fab fa-github"></i> Repository</a>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Academic & Development Experience -->
+                <section class="cv-section">
+                    <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience & Development Journey</h2>
+                    
+                    <div class="item-card">
+                        <div class="item-header">
+                            <span class="item-title">Software & Mobile App Developer</span>
+                            <span class="item-date">2024 - Present</span>
+                        </div>
+                        <div class="item-subtitle">Academic Projects & Freelance Development | Phnom Penh</div>
+                        <div class="item-desc">
+                            <ul>
+                                <li>Developed over 20+ applications and academic projects covering responsive web design, mobile apps, and database management.</li>
+                                <li>Collaborated using Git and GitHub for version control, issue tracking, and automated deployments.</li>
+                                <li>Practiced Clean Code architecture, modular design patterns, and cross-device testing.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column / Sidebar -->
+            <div class="cv-side-col">
+
+                <!-- Technical Skills -->
+                <section class="cv-section">
+                    <h2 class="section-title"><i class="fas fa-tools"></i> Technical Skills</h2>
+
+                    <div class="skills-group">
+                        <div class="skills-group-title">Mobile Development</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill">Flutter</span>
+                            <span class="skill-pill">Dart</span>
+                            <span class="skill-pill">React Native</span>
+                            <span class="skill-pill">Kotlin</span>
+                            <span class="skill-pill">Java</span>
+                            <span class="skill-pill">Android SDK</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group">
+                        <div class="skills-group-title">Frontend Web</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill">HTML5</span>
+                            <span class="skill-pill">CSS3 / SCSS</span>
+                            <span class="skill-pill">JavaScript ES6+</span>
+                            <span class="skill-pill">React.js</span>
+                            <span class="skill-pill">Bootstrap 5</span>
+                            <span class="skill-pill">Responsive Design</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group">
+                        <div class="skills-group-title">Backend & APIs</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill">PHP</span>
+                            <span class="skill-pill">Laravel</span>
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">C#</span>
+                            <span class="skill-pill">RESTful APIs</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group">
+                        <div class="skills-group-title">Databases</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill">MySQL</span>
+                            <span class="skill-pill">PostgreSQL</span>
+                            <span class="skill-pill">SQLite</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group">
+                        <div class="skills-group-title">DevOps & Tools</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill">Git & GitHub</span>
+                            <span class="skill-pill">Docker</span>
+                            <span class="skill-pill">Linux</span>
+                            <span class="skill-pill">VS Code</span>
+                            <span class="skill-pill">Android Studio</span>
+                            <span class="skill-pill">Netlify</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Education -->
+                <section class="cv-section">
+                    <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+
+                    <div class="item-card">
+                        <span class="item-title">Bachelor of Computer Science / Software Engineering</span>
+                        <div class="item-subtitle">National University / University of Technology</div>
+                        <span class="item-date">2024 - Present</span>
+                        <p class="item-desc">Focusing on Mobile Application Development, Web Engineering, Database Systems, and Algorithms.</p>
+                    </div>
+                </section>
+
+                <!-- Certificates & Awards -->
+                <section class="cv-section">
+                    <h2 class="section-title"><i class="fas fa-award"></i> Certificates</h2>
+                    <ul class="list-unstyled">
+                        <li class="list-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Mobile Developer Certificate</strong>
+                                <div style="font-size: 11.5px; color: var(--text-light);">ETEC Center (2025)</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Web Development Excellence</strong>
+                                <div style="font-size: 11.5px; color: var(--text-light);">Excellence Recognition (2024)</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Best React Application</strong>
+                                <div style="font-size: 11.5px; color: var(--text-light);">Web Development Award (2025)</div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Languages -->
+                <section class="cv-section">
+                    <h2 class="section-title"><i class="fas fa-language"></i> Languages</h2>
+                    <ul class="list-unstyled">
+                        <li class="list-item">
+                            <i class="fas fa-globe-asia"></i>
+                            <div><strong>Khmer:</strong> Native</div>
+                        </li>
+                        <li class="list-item">
+                            <i class="fas fa-globe-americas"></i>
+                            <div><strong>English:</strong> Professional Working Proficiency</div>
+                        </li>
+                    </ul>
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
